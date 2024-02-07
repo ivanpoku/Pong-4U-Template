@@ -225,8 +225,14 @@ namespace Pong
             plaery2ScoreLabel.Text = $"{player2Score}";
             player1ScoreLabel.Text = $"{player1Score}";
 
-            //refresh the screen, which causes the Form1_Paint method to run
-            this.Refresh();
+            if (player1.IntersectsWith(ball) || player2.IntersectsWith(ball))
+            {
+                balls.Add(new Rectangle(this.Width / 2, this.Height / 2, BALL_WIDTH, BALL_HEIGHT));  
+            }
+
+
+                //refresh the screen, which causes the Form1_Paint method to run
+                this.Refresh();
         }
 
         /// <summary>
@@ -253,23 +259,12 @@ namespace Pong
             e.Graphics.FillRectangle(redBrush, player2);
             e.Graphics.FillRectangle(whiteBrush, ball);
 
-            if (player1.IntersectsWith(ball) || player2.IntersectsWith(ball))
+            for (int i = 0; i < balls.Count(); i++)
             {
-                for (int i = 0; i < balls.Count(); i++)
+                e.Graphics.FillRectangle(whiteBrush, balls[i]);
 
-                {
-                    balls.Add(new Rectangle(this.Width/2, this.Height/2, BALL_WIDTH, BALL_HEIGHT));
-                    
-                }
-                foreach (Rectangle ball in balls)
-                {
-                    e.Graphics.FillRectangle(whiteBrush, ball);
-                }
             }
-         
-            // TODO draw ball using FillRectangle
 
         }
-
     }
 }
