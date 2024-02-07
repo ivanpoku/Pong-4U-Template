@@ -1,7 +1,7 @@
 ﻿/*
  * Description:     A basic PONG simulator
- * Author:           
- * Date:            
+ * Author:      Vaniya Pokusaev           
+ * Date:        2024-02-07            
  */
 
 #region libraries
@@ -153,6 +153,9 @@ namespace Pong
         /// </summary>
         private void gameUpdateLoop_Tick(object sender, EventArgs e)
         {
+
+            
+
             //Ball Movement
             ball.X += BALL_SPEEDX;
             ball.Y += BALL_SPEEDY;
@@ -225,14 +228,21 @@ namespace Pong
             plaery2ScoreLabel.Text = $"{player2Score}";
             player1ScoreLabel.Text = $"{player1Score}";
 
+
+            //adds a new ball to the list on intersection
             if (player1.IntersectsWith(ball) || player2.IntersectsWith(ball))
+            { 
+                balls.Add(new Rectangle(this.Width / 2, this.Height / 2, BALL_WIDTH, BALL_HEIGHT));
+            }
+            for (int i = 0; i < balls.Count(); i++)
             {
-                balls.Add(new Rectangle(this.Width / 2, this.Height / 2, BALL_WIDTH, BALL_HEIGHT));  
+                int y = balls[i].Y + BALL_SPEEDY;
+
             }
 
 
-                //refresh the screen, which causes the Form1_Paint method to run
-                this.Refresh();
+            //refresh the screen, which causes the Form1_Paint method to run
+            this.Refresh();
         }
 
         /// <summary>
